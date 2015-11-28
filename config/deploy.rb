@@ -1,8 +1,8 @@
 require 'bundler/capistrano'
 set :application, "massiveapp"
 
-set :whenever_command, "bundle exec whenever"
-require "whenever/capistrano"
+#set :whenever_command, "bundle exec whenever -user vagrant"
+#require "whenever/capistrano"
 
 set :scm, :git
 set :repository, "git://github.com/deployingrails/massiveapp.git"
@@ -10,7 +10,7 @@ set :repository, "git://github.com/deployingrails/massiveapp.git"
 server "localhost", :web, :app, :db, :primary => true
 
 ssh_options[:port] = 2222
-ssh_options[:keys] = "~/.vagrant.d/insecure_private_key"
+ssh_options[:keys] = "~/.ssh/id_rsa.pub"
 
 set :user, "vagrant"
 set :group, "vagrant"
@@ -37,12 +37,13 @@ before "deploy:assets:precompile", "deploy:copy_in_database_yml"
 #  run "redis-cli bgrewriteaof"
 #end
 #
-desc "Download the production log file"
-task :get_dir do |t|
-  get "#{current_path}/log/", "#{Time.now}.log"
-end
+#desc "Download the production log file"
+#task :get_dir do |t|
+#  get "#{current_path}/log/", "#{Time.now}.log"
+#end
 
-desc "Download the production log file"
-task :get_log do |t|
-  get "#{current_path}/log/production.log", "#{Time.now.strftime("%Y%m%d%H%M")}.production.log"
-end
+#desc "Download the production log file"
+#task :get_log do |t|
+#  get "#{current_path}/log/production.log", "#{Time.now.strftime("%Y%m%d%H%M")}.production.log"
+#end
+
